@@ -1,108 +1,254 @@
+/* --- VARIAVEIS DE TEMA E CORES (TEMA ESCURO PERMANENTE) --- */
+:root {
+    --primary-color: #33db89;
+    --primary-dark: #122640;
+    --background-color: #122640;
+    --card-bg-color: #1A304F;
+    --text-color: #e0e0e0;
+    --text-muted-color: #a0a0a0;
+    --border-color: #2A4569;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* --- ESTILOS GERAIS --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
     line-height: 1.6;
-    padding: 20px;
+    padding: 2rem 1rem;
 }
 
 .container {
-    max-width: 800px;
-    margin: auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 850px;
+    margin: 2rem auto;
+    background: var(--card-bg-color);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
 }
 
-h1, h2, h3 {
-    color: #333;
+h1 {
     text-align: center;
+    color: var(--primary-color); /* Usando a cor de destaque */
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
 }
 
-.prompt {
-    background-color: #eef;
-    border-left: 5px solid #66f;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+h2.criteria-title {
+    text-align: center;
+    font-weight: 600;
+    margin: 2.5rem 0 1.5rem;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+h2.criteria-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
-.prompt-text {
-    font-style: italic;
-    color: #555;
-    margin: 10px 0;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-select, input[type="number"], textarea {
+/* --- BARRA DE PROGRESSO --- */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    height: 6px;
+    background-color: var(--border-color);
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--primary-color);
+    border-radius: 0 3px 3px 0;
+    transition: width 0.5s ease-in-out;
 }
 
-/* NOVA REGRA: Estilos específicos para o textarea */
-textarea {
-    margin-top: 10px; /* Adiciona um espaço entre o campo de nota e o comentário */
-    min-height: 60px;
-    resize: vertical; /* Permite que o usuário redimensione verticalmente */
-    font-family: inherit; /* Garante que a fonte seja a mesma do resto do corpo */
+/* --- GRUPO DE INPUTS COM RÓTULOS FLUTUANTES --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
-hr {
-    margin: 30px 0;
-    border: 0;
-    border-top: 1px solid #eee;
+.input-group {
+    position: relative;
+    margin-top: 1.5rem;
 }
 
-.criteria .criterion {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 5px;
+select:required:invalid {
+    color: var(--text-muted-color);
 }
 
+.input-group select,
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: var(--font-family);
+}
+.input-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
 
-.criterion p {
-    margin-top: 5px;
-    font-size: 0.9em;
-    color: #666;
+.input-group label {
+    position: absolute;
+    top: 15px;
+    left: 16px;
+    color: var(--text-muted-color);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--card-bg-color);
+    padding: 0 5px;
+}
+
+.input-group select:focus + label,
+.input-group select:valid + label,
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 12px;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+.input-group select:focus,
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(51, 219, 137, 0.15);
+}
+
+/* --- CRITÉRIOS DE AVALIAÇÃO --- */
+.criteria {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.criterion {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.criterion:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.criterion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+.criterion-header h3 { font-size: 1.1rem; color: var(--text-color); font-weight: 600; }
+.criterion-header span { font-size: 0.9rem; color: var(--primary-color); font-weight: 600; }
+.criterion p { font-size: 0.9rem; color: var(--text-muted-color); margin-bottom: 1rem; }
+
+/* --- NOTA FINAL E BOTÃO --- */
+.final-grade-container {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    background: linear-gradient(135deg, var(--primary-dark), #0c1a2e);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+.final-grade-container h3 {
+    color: white;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+#finalGrade {
+    font-size: 3rem;
+    font-weight: 700;
 }
 
 button {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 12px;
-    background-color: #66f;
-    color: white;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: var(--primary-dark);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.3s, opacity 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(51, 219, 137, 0.25);
+    opacity: 0.9;
+}
+button:disabled {
+    background: #a0a0a0;
+    cursor: not-allowed;
 }
 
-button:hover {
-    background-color: #55e;
+.spinner {
+    border: 3px solid rgba(18, 38, 64, 0.3);
+    border-top: 3px solid var(--primary-dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
 }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-#finalGrade {
-    font-weight: bold;
-    color: #66f;
-}
-
+/* --- MENSAGENS DE FEEDBACK --- */
 #responseMessage {
-    margin-top: 15px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    border-radius: 8px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
+}
+#responseMessage.success { color: #d4edda; background-color: rgba(40, 167, 69, 0.2); }
+#responseMessage.error { color: #f8d7da; background-color: rgba(220, 53, 69, 0.2); }
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; gap: 0; }
+    .container { padding: 1.5rem; }
+    h1 { font-size: 1.8rem; }
 }

@@ -3,86 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Avaliação de Cursos de Pós-Graduação</title>
+    <title>Formulário de Avaliação Avançado - UniFECAF</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/images.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Barra de Progresso -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <div class="container">
-        <h1>Formulário de Avaliação de Cursos</h1>
-        <div class="prompt">
-            <p><strong>Prezados Coordenadores,</strong></p>
-            <p>para auxiliar no preenchimento do template acima, utilize o seguinte prompt junto com a inteligência artificial, inserindo todo o conteúdo do seu curso (programas, ementas, atividades, materiais):</p>
-            <blockquote class="prompt-text">
-                “Analise detalhadamente o conteúdo do curso de pós-graduação [Nome do Curso], incluindo todas as disciplinas, e avalie a qualidade com base nos seguintes critérios: atualização do conteúdo, relevância para o mercado profissional atual, qualidade das atividades avaliativas, relevância e coerência das disciplinas e clareza da nomenclatura das disciplinas. Com base nessa análise, forneça uma avaliação numérica (de 0 a 10) para cada critério e um resumo justificando essas notas. Utilize dados recentes do mercado para fundamentar a avaliação e sugira melhorias para aumentar a qualidade e pertinência do curso.”
-            </blockquote>
-            <p>Após receber a resposta da IA, preencha o formulário abaixo com as notas correspondentes a cada critério.</p>
-        </div>
-
-           <form id="evaluationForm">
-            <div class="form-group">
-                <label for="coordinator">Selecione o Coordenador:</label>
-                <select id="coordinator" name="coordenador" required>
-                    <option value="">--Selecione--</option>
-                </select>
+        <!-- O header foi removido para um visual mais limpo -->
+        
+        <h1>Formulário de Avaliação de Cursos - UniFECAF</h1>
+        
+        <form id="evaluationForm">
+            <div class="form-grid">
+                <!-- Grupo com Rótulo Flutuante -->
+                <div class="input-group">
+                    <select id="coordinator" name="coordenador" required></select>
+                    <label for="coordinator">Selecione o Coordenador</label>
+                </div>
+                <div class="input-group">
+                    <select id="course" name="curso" required></select>
+                    <label for="course">Selecione o Curso</label>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="course">Selecione o Curso:</label>
-                <select id="course" name="curso" required>
-                    <option value="">--Selecione um coordenador primeiro--</option>
-                </select>
-            </div>
-
-            <hr>
-            <h2>Critérios de Avaliação</h2>
-
+            
+            <h2 class="criteria-title">Critérios de Avaliação</h2>
             <div class="criteria">
                 <div class="criterion">
-                    <label>"Relevância das Disciplinas (Peso: 15%)"</label>
-                    <p>As disciplinas são relevantes, coerentes e organizadas para o desenvolvimento do conhecimento na área?</p>
-                    <input type="number" name="relevancia_disciplinas" min="0" max="10" step="0.1" required>
-                    <!-- NOVO CAMPO DE COMENTÁRIO -->
-                    <textarea name="comentario_relevancia" placeholder="Justificativa da nota" rows="2"></textarea>
+                    <div class="criterion-header">
+                        <h3>Relevância das Disciplinas</h3>
+                        <span>Peso: 15%</span>
+                    </div>
+                    <p>As disciplinas são relevantes e coerentes para o desenvolvimento do conhecimento?</p>
+                    <div class="input-group">
+                        <input type="number" name="relevancia_disciplinas" min="0" max="10" step="0.1" required placeholder=" ">
+                        <label for="relevancia_disciplinas">Nota (0 a 10)</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="comentario_relevancia" placeholder=" " rows="2"></textarea>
+                        <label for="comentario_relevancia">Justificativa da nota</label>
+                    </div>
+                </div>
+                <!-- Repita a estrutura .criterion para os outros critérios -->
+                <div class="criterion">
+                    <div class="criterion-header">
+                        <h3>Nomenclatura das Disciplinas</h3>
+                        <span>Peso: 10%</span>
+                    </div>
+                    <p>Os nomes das disciplinas são comerciais e refletem o conteúdo claramente?</p>
+                    <div class="input-group">
+                        <input type="number" name="nomenclatura_disciplinas" min="0" max="10" step="0.1" required placeholder=" ">
+                        <label for="nomenclatura_disciplinas">Nota (0 a 10)</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="comentario_nomenclatura" placeholder=" " rows="2"></textarea>
+                        <label for="comentario_nomenclatura">Justificativa da nota</label>
+                    </div>
                 </div>
                 <div class="criterion">
-                    <label>"Nomenclatura das Disciplinas (Peso: 10%)"</label>
-                    <p>Os nomes das disciplinas refletem são comerciais (sexys), refletem claramente o conteúdo e facilitam o entendimento da proposta do curso?</p>
-                    <input type="number" name="nomenclatura_disciplinas" min="0" max="10" step="0.1" required>
-                    <!-- NOVO CAMPO DE COMENTÁRIO -->
-                    <textarea name="comentario_nomenclatura" placeholder="Justificativa da nota" rows="2"></textarea>
+                    <div class="criterion-header">
+                        <h3>Atualização do Conteúdo</h3>
+                        <span>Peso: 30%</span>
+                    </div>
+                    <p>O conteúdo está atualizado com as tendências recentes da área?</p>
+                    <div class="input-group">
+                        <input type="number" name="atualizacao_conteudo" min="0" max="10" step="0.1" required placeholder=" ">
+                        <label for="atualizacao_conteudo">Nota (0 a 10)</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="comentario_atualizacao" placeholder=" " rows="2"></textarea>
+                        <label for="comentario_atualizacao">Justificativa da nota</label>
+                    </div>
                 </div>
                 <div class="criterion">
-                    <label>"Atualização do Conteúdo (Peso: 30%)"</label>
-                    <p>O conteúdo está atualizado com as tendências e desenvolvimentos mais recentes da área profissional?</p>
-                    <input type="number" name="atualizacao_conteudo" min="0" max="10" step="0.1" required>
-                    <!-- NOVO CAMPO DE COMENTÁRIO -->
-                    <textarea name="comentario_atualizacao" placeholder="Justificativa da nota" rows="2"></textarea>
+                    <div class="criterion-header">
+                        <h3>Importância para o Mercado</h3>
+                        <span>Peso: 30%</span>
+                    </div>
+                    <p>O conteúdo atende às demandas atuais e futuras do mercado de trabalho?</p>
+                    <div class="input-group">
+                        <input type="number" name="importancia_mercado" min="0" max="10" step="0.1" required placeholder=" ">
+                        <label for="importancia_mercado">Nota (0 a 10)</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="comentario_importancia" placeholder=" " rows="2"></textarea>
+                        <label for="comentario_importancia">Justificativa da nota</label>
+                    </div>
                 </div>
                 <div class="criterion">
-                    <label>"Importância do Conteúdo para o Mercado Profissional (Peso: 30%)"</label>
-                    <p>O conteúdo atende às demandas atuais e futuras do mercado de trabalho e à formação prática necessária?</p>
-                    <input type="number" name="importancia_mercado" min="0" max="10" step="0.1" required>
-                    <!-- NOVO CAMPO DE COMENTÁRIO -->
-                    <textarea name="comentario_importancia" placeholder="Justificativa da nota" rows="2"></textarea>
-                </div>
-                <div class="criterion">
-                    <label>"Qualidade das Atividades Avaliativas (Peso: 15%)"</label>
-                    <p>As atividades propostas promovem efetivamente o aprendizado e a aplicação prática do conteúdo?</p>
-                    <input type="number" name="qualidade_atividades" min="0" max="10" step="0.1" required>
-                    <!-- NOVO CAMPO DE COMENTÁRIO -->
-                    <textarea name="comentario_qualidade" placeholder="Justificativa da nota" rows="2"></textarea>
+                    <div class="criterion-header">
+                        <h3>Qualidade das Atividades</h3>
+                        <span>Peso: 15%</span>
+                    </div>
+                    <p>As atividades propostas promovem a aplicação prática do conteúdo?</p>
+                    <div class="input-group">
+                        <input type="number" name="qualidade_atividades" min="0" max="10" step="0.1" required placeholder=" ">
+                        <label for="qualidade_atividades">Nota (0 a 10)</label>
+                    </div>
+                     <div class="input-group">
+                        <textarea name="comentario_qualidade" placeholder=" " rows="2"></textarea>
+                        <label for="comentario_qualidade">Justificativa da nota</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <h3>Avaliação Final (Média Ponderada): <span id="finalGrade">0.00</span></h3>
+            <div class="final-grade-container">
+                <h3>Avaliação Final (Ponderada)</h3>
+                <span id="finalGrade">0.00</span>
             </div>
-
-            <button type="submit" id="submitButton">Enviar Avaliação</button>
-            <div id="loading" style="display: none;">Enviando...</div>
+            
+            <button type="submit" id="submitButton">
+                <span class="button-text">Enviar Avaliação</span>
+                <div class="spinner" style="display: none;"></div>
+            </button>
+            
             <div id="responseMessage"></div>
         </form>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
