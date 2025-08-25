@@ -11,13 +11,41 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressBar = document.getElementById('progressBar');
 
     const data = {
-        "Ataide Ribeiro da Silva Junior": ["A Escola do Futuro", "Alfabetização e Letramento", /* ...e outros... */],
-        "Diego Muniz Braga": ["Administração Pública", "Empreendedorismo e Inovação", /* ...e outros... */],
+        "Ataide Ribeiro da Silva Junior": [
+            "A Escola do Futuro", "Alfabetização e Letramento", "Alfabetização e Letramento e a Psicopedagogia Institucional",
+            "Atendimento Educacional Especializado", "Docência do Ensino Superior", "Educação Ambiental",
+            "Educação de Jovens e Adultos", "Educação Especial com Ênfase em Deficiência Intelectual",
+            "Educação Especial com Ênfase em Deficiência Intelectual, Física e Psicomotora",
+            "Educação Especial com Ênfase em Transtornos Globais de Desenvolvimento (TGD) e Altas Habilidades",
+            "Educação Especial e Inclusiva", "Educação Especial e Inclusiva com Ênfase em Tecnologia Assistiva e Comunicação Alternativa",
+            "Educação Inclusiva", "Educação Infantil", "Ensino Lúdico", "Ensino Religioso",
+            "Gestão e Organização escolar para GOE", "Gestão Escolar", "História e Cultura Afro-Brasileira",
+            "Ludicidade e Psicomotricidade na Educação Infantil", "Metodologia do Ensino da Matemática",
+            "Metodologia do Ensino de Arte", "Metodologia do Ensino de História e Geografia",
+            "Metodologia do Ensino de Língua Inglesa", "Metodologias Ativas", "Neuropsicopedagogia",
+            "Orientação Escolar", "Psicomotricidade", "Psicomotricidade e Educação Especial",
+            "Psicomotricidade e Movimento", "Psicopedagogia", "Psicopedagogia Clínica e Institucional",
+            "Psicopedagogia e Educação Especial", "Supervisão Escolar", "Tecnologias Educacionais",
+            "Tutoria em Educação a Distância"
+        ],
+        "Diego Muniz Braga": [
+            "Administração Pública", "Empreendedorismo e Inovação", "Marketing 4.0", "Marketing Digital",
+            "Marketing e Customer Experience", "MBA Compliance e Governança", "MBA Finanças e Controladoria",
+            "MBA Gestão Comercial", "MBA Gestão de Investimento", "MBA Gestão de Projetos",
+            "MBA Gestão estratégica de Negócios", "MBA Gestão Estratégica de Pessoas",
+            "Recrutamento e Employer branding", "Supply Chain", "Treinamento e Coaching profissional"
+        ],
         "Jair Antonio Motta Barbosa": ["Segurança Pública"],
         "Juliana de Almeida Pachioni": ["MBA Gestão Hospitalar", "Saúde Pública com Ênfase em Saúde da Família"],
-        "Mayke Akihyto Iyusuka": ["Direito Administrativo", "Direito Digital e Proteção de Dados", /* ...e outros... */],
+        "Mayke Akihyto Iyusuka": [
+            "Direito Administrativo", "Direito Digital e Proteção de Dados", "Direito Penal",
+            "Direito Penal e Segurança Pública"
+        ],
         "Osvaldo Domingos da Silva Junior": ["Full Stack Development - Design, Engineering & Deployment"],
-        "Paula Coimbra": ["Análise Comportamental Aplicada (ABA) para pessoas com Transtorno do Espectro Autista (TEA)", /* ...e outros... */],
+        "Paula Coimbra": [
+            "Análise Comportamental Aplicada (ABA) para pessoas com Transtorno do Espectro Autista (TEA)",
+            "Psicologia Organizacional", "Psicologia Positiva nas Organizações"
+        ],
         "Sebastiao Garcia Junior": ["Gestão Ambiental", "MBA Gestão de Obras"],
         "Solival Jose de Almeida Santos Filho": ["Educação Física Escolar", "Educação Física Escolar com Ênfase em Inclusão"]
     };
@@ -64,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateProgressBar() {
-        const filledCount = requiredInputs.filter(input => input.value.trim() !== '').length;
+        const filledCount = requiredInputs.filter(input => input.value.trim() !== '' && input.value !== null).length;
         const progress = (filledCount / requiredInputs.length) * 100;
         progressBar.style.width = `${progress}%`;
     }
@@ -95,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dataObject = Object.fromEntries(formData.entries());
 
         try {
+            // !!! IMPORTANTE: Substitua pela URL do seu Google Apps Script !!!
             const response = await fetch('https://script.google.com/macros/s/AKfycbzmFsjha5WzzVFf3EV8Xz4m-WbcDYnR6ZdHnaHsqBfTCqagC68tMQMDkq6T7csXY3lZ/exec', {
                 method: 'POST',
                 body: JSON.stringify(dataObject)
