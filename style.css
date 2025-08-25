@@ -122,6 +122,11 @@ select:required:invalid {
     background-size: 1em;
 }
 
+.input-group select option {
+    color: var(--primary-dark);
+    background-color: #ffffff;
+}
+
 .input-group label {
     position: absolute;
     top: 15px;
@@ -313,4 +318,5 @@ button:disabled {
     color: var(--text-color);
     background-color: var(--card-bg-color);
     border-radius: 8px;
+
 }
