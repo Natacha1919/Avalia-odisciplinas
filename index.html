@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Avaliação de Cursos de Pós-Graduação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulário de Avaliação de Cursos</h1>
+        <div class="prompt">
+            <p><strong>Prezados Coordenadores,</strong></p>
+            <p>para auxiliar no preenchimento do template acima, utilize o seguinte prompt junto com a inteligência artificial, inserindo todo o conteúdo do seu curso (programas, ementas, atividades, materiais):</p>
+            <blockquote class="prompt-text">
+                “Analise detalhadamente o conteúdo do curso de pós-graduação [Nome do Curso], incluindo todas as disciplinas, e avalie a qualidade com base nos seguintes critérios: atualização do conteúdo, relevância para o mercado profissional atual, qualidade das atividades avaliativas, relevância e coerência das disciplinas e clareza da nomenclatura das disciplinas. Com base nessa análise, forneça uma avaliação numérica (de 0 a 10) para cada critério e um resumo justificando essas notas. Utilize dados recentes do mercado para fundamentar a avaliação e sugira melhorias para aumentar a qualidade e pertinência do curso.”
+            </blockquote>
+            <p>Após receber a resposta da IA, preencha o formulário abaixo com as notas correspondentes a cada critério.</p>
+        </div>
+
+           <form id="evaluationForm">
+            <div class="form-group">
+                <label for="coordinator">Selecione o Coordenador:</label>
+                <select id="coordinator" name="coordenador" required>
+                    <option value="">--Selecione--</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="course">Selecione o Curso:</label>
+                <select id="course" name="curso" required>
+                    <option value="">--Selecione um coordenador primeiro--</option>
+                </select>
+            </div>
+
+            <hr>
+            <h2>Critérios de Avaliação</h2>
+
+            <div class="criteria">
+                <div class="criterion">
+                    <label>"Relevância das Disciplinas (Peso: 15%)"</label>
+                    <p>As disciplinas são relevantes, coerentes e organizadas para o desenvolvimento do conhecimento na área?</p>
+                    <input type="number" name="relevancia_disciplinas" min="0" max="10" step="0.1" required>
+                    <!-- NOVO CAMPO DE COMENTÁRIO -->
+                    <textarea name="comentario_relevancia" placeholder="Justificativa da nota" rows="2"></textarea>
+                </div>
+                <div class="criterion">
+                    <label>"Nomenclatura das Disciplinas (Peso: 10%)"</label>
+                    <p>Os nomes das disciplinas refletem são comerciais (sexys), refletem claramente o conteúdo e facilitam o entendimento da proposta do curso?</p>
+                    <input type="number" name="nomenclatura_disciplinas" min="0" max="10" step="0.1" required>
+                    <!-- NOVO CAMPO DE COMENTÁRIO -->
+                    <textarea name="comentario_nomenclatura" placeholder="Justificativa da nota" rows="2"></textarea>
+                </div>
+                <div class="criterion">
+                    <label>"Atualização do Conteúdo (Peso: 30%)"</label>
+                    <p>O conteúdo está atualizado com as tendências e desenvolvimentos mais recentes da área profissional?</p>
+                    <input type="number" name="atualizacao_conteudo" min="0" max="10" step="0.1" required>
+                    <!-- NOVO CAMPO DE COMENTÁRIO -->
+                    <textarea name="comentario_atualizacao" placeholder="Justificativa da nota" rows="2"></textarea>
+                </div>
+                <div class="criterion">
+                    <label>"Importância do Conteúdo para o Mercado Profissional (Peso: 30%)"</label>
+                    <p>O conteúdo atende às demandas atuais e futuras do mercado de trabalho e à formação prática necessária?</p>
+                    <input type="number" name="importancia_mercado" min="0" max="10" step="0.1" required>
+                    <!-- NOVO CAMPO DE COMENTÁRIO -->
+                    <textarea name="comentario_importancia" placeholder="Justificativa da nota" rows="2"></textarea>
+                </div>
+                <div class="criterion">
+                    <label>"Qualidade das Atividades Avaliativas (Peso: 15%)"</label>
+                    <p>As atividades propostas promovem efetivamente o aprendizado e a aplicação prática do conteúdo?</p>
+                    <input type="number" name="qualidade_atividades" min="0" max="10" step="0.1" required>
+                    <!-- NOVO CAMPO DE COMENTÁRIO -->
+                    <textarea name="comentario_qualidade" placeholder="Justificativa da nota" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Avaliação Final (Média Ponderada): <span id="finalGrade">0.00</span></h3>
+            </div>
+
+            <button type="submit" id="submitButton">Enviar Avaliação</button>
+            <div id="loading" style="display: none;">Enviando...</div>
+            <div id="responseMessage"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
