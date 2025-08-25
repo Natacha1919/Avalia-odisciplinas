@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const buttonSpinner = submitButton.querySelector('.spinner');
     const responseMessage = document.getElementById('responseMessage');
     const progressBar = document.getElementById('progressBar');
+    const promptContainer = document.getElementById('promptContainer');
+    const promptHeader = document.getElementById('promptHeader');
+    const aiResponseTextarea = document.getElementById('aiResponse');
+    const distributeBtn = document.getElementById('distributeResponseBtn');
 
+    
     const data = {
         "Ataide Ribeiro da Silva Junior": [
             "A Escola do Futuro", "Alfabetização e Letramento", "Alfabetização e Letramento e a Psicopedagogia Institucional",
@@ -113,6 +118,62 @@ document.addEventListener('DOMContentLoaded', function () {
             buttonSpinner.style.display = 'none';
         }
     }
+    
+    function parseAndDistributeAIResponse() {
+        const text = aiResponseTextarea.value;
+        if (!text) {
+            alert("Por favor, cole a resposta da IA primeiro.");
+            return;
+        }
+
+        // ================== CORREÇÃO APLICADA AQUI ==================
+        // Usamos partes únicas e sem acento das palavras para garantir a correspondência
+        const keywordMap = {
+            'relev': { nota: 'relevancia_disciplinas', comentario: 'comentario_relevancia' }, // de Relevância
+            'nomenclatura': { nota: 'nomenclatura_disciplinas', comentario: 'comentario_nomenclatura' },
+            'atualiza': { nota: 'atualizacao_conteudo', comentario: 'comentario_atualizacao' }, // de Atualização
+            'mercado': { nota: 'importancia_mercado', comentario: 'comentario_importancia' },
+            'atividades': { nota: 'qualidade_atividades', comentario: 'comentario_qualidade' }
+        };
+        // =============================================================
+
+        let fieldsFilled = 0;
+        
+        for (const keyword in keywordMap) {
+            // A Regex agora é robusta o suficiente para as variações de palavras
+            const noteRegex = new RegExp(`nota[^:]*${keyword}[^:]*:\\s*([0-9.,]+)`, 'i');
+            const noteMatch = text.match(noteRegex);
+            
+            if (noteMatch && noteMatch[1]) {
+                const fieldName = keywordMap[keyword].nota;
+                const input = document.querySelector(`input[name="${fieldName}"]`);
+                if (input) {
+                    input.value = noteMatch[1].replace(',', '.');
+                    fieldsFilled++;
+                }
+            }
+
+            const justificationRegex = new RegExp(`(justificativa|resumo)[^:]*${keyword}[^:]*:\\s*([\\s\\S]*?)(?=(nota\\s|justificativa|resumo|👉)|$)`, 'i');
+            const justificationMatch = text.match(justificationRegex);
+
+            if (justificationMatch && justificationMatch[2]) {
+                const fieldName = keywordMap[keyword].comentario;
+                const textarea = document.querySelector(`textarea[name="${fieldName}"]`);
+                if (textarea) {
+                    textarea.value = justificationMatch[2].trim();
+                    fieldsFilled++;
+                }
+            }
+        }
+
+        form.dispatchEvent(new Event('input', { bubbles: true }));
+
+        if (fieldsFilled > 0) {
+            alert(`Campos preenchidos com sucesso!\n\nPor favor, revise as notas e justificativas.`);
+        } else {
+            alert(`Não foi possível encontrar notas ou justificativas no texto.\n\nVerifique se a resposta da IA segue o formato solicitado.`);
+        }
+    }
 
     async function handleFormSubmit(e) {
         e.preventDefault();
@@ -123,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const dataObject = Object.fromEntries(formData.entries());
 
         try {
-            // !!! IMPORTANTE: Substitua pela URL do seu Google Apps Script !!!
             const response = await fetch('https://script.google.com/macros/s/AKfycbzmFsjha5WzzVFf3EV8Xz4m-WbcDYnR6ZdHnaHsqBfTCqagC68tMQMDkq6T7csXY3lZ/exec', {
                 method: 'POST',
                 body: JSON.stringify(dataObject)
@@ -135,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result.result === 'success') {
                 showMessage('Avaliação enviada com sucesso!', 'success');
                 form.reset();
+                aiResponseTextarea.value = '';
                 updateCourses();
                 calculateFinalGrade();
                 updateProgressBar();
@@ -156,12 +217,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     form.addEventListener('submit', handleFormSubmit);
 
-    // Event listener para o acordeão do prompt
     if (promptHeader) {
         promptHeader.addEventListener('click', () => {
             promptContainer.classList.toggle('active');
         });
     }
+
+    distributeBtn.addEventListener('click', parseAndDistributeAIResponse);
 
     // --- INICIALIZAÇÃO ---
     populateCoordinators();

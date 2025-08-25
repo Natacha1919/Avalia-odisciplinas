@@ -26,15 +26,67 @@
                 <span>Instruções para Preenchimento com IA</span>
             </div>
             <div class="prompt-content">
-                <p><strong>Prezados Coordenadores,</strong></p>
-                <p>para auxiliar no preenchimento do formulário, utilize o seguinte prompt junto à inteligência artificial, inserindo todo o conteúdo do seu curso (programas, ementas, atividades, materiais):</p>
+                <p><strong>Prezado(a) Coordenador(a),</strong></p>
+                <p>Copie <strong>todo o texto abaixo</strong> e cole-o em uma ferramenta de Inteligência Artificial (como o Gemini, ChatGPT, etc.). Em seguida, substitua o trecho indicado para inserir as informações completas do seu curso.</p>
+                <p>A resposta gerada pela IA deverá ser colada no campo "Assistente de Preenchimento" do nosso formulário.</p>
+                <hr style="margin: 1rem 0; border-color: var(--border-color);">
+                <p><strong>[COPIE A PARTIR DAQUI]</strong></p>
                 <blockquote>
-                    “Analise detalhadamente o conteúdo do curso de pós-graduação [Nome do Curso], incluindo todas as disciplinas, e avalie a qualidade com base nos seguintes critérios: atualização do conteúdo, relevância para o mercado profissional atual, qualidade das atividades avaliativas, relevância e coerência das disciplinas e clareza da nomenclatura das disciplinas. Com base nessa análise, forneça uma avaliação numérica (de 0 a 10) para cada critério e um resumo justificando essas notas. Utilize dados recentes do mercado para fundamentar a avaliação e sugira melhorias para aumentar a qualidade e pertinência do curso.”
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: inherit; font-size: 0.9em;">
+Assuma o papel de um especialista em design de currículo acadêmico e analista de tendências de mercado, com foco em educação de pós-graduação no Brasil.
+
+OBJETIVO: Realizar uma análise crítica e detalhada do curso de pós-graduação cujo conteúdo completo (programas, ementas, atividades, materiais) será fornecido abaixo. Sua avaliação deve ser imparcial, baseada em dados e orientada para a máxima performance do curso no mercado atual.
+
+CONTEÚDO DO CURSO PARA ANÁLISE: (COLOQUE SEU CONTEÚDO COMPLETO AQUI)
+
+SUA TAREFA DETALHADA:
+
+1. Análise dos Critérios: Avalie o conteúdo fornecido com base nos 5 critérios a seguir. Fundamente sua análise em dados recentes sobre as competências mais valorizadas pelo mercado de trabalho para os próximos anos.
+
+*   Relevância das Disciplinas: As disciplinas são coerentes entre si? A ordem faz sentido para a construção do conhecimento?
+*   Nomenclatura das Disciplinas: Os nomes são claros, modernos e comercialmente atrativos ("sexys")? Eles refletem bem o conteúdo?
+*   Atualização do Conteúdo: A ementa inclui as ferramentas, tecnologias e conceitos mais recentes da área?
+*   Importância para o Mercado: O curso prepara o aluno para desafios reais e atuais do mercado de trabalho? As habilidades ensinadas são as que as empresas estão procurando?
+*   Qualidade das Atividades: As atividades propostas são práticas e eficazes para aplicar o conhecimento? Elas simulam desafios reais da profissão?
+
+2. Formato da Resposta (OBRIGATÓRIO):
+Para garantir que a resposta possa ser processada por um sistema automatizado, é crucial que você siga **exatamente** o formato abaixo para CADA UM dos cinco critérios, sem alterar os títulos:
+
+`Nota [Nome Completo do Critério]: [sua nota de 0 a 10]`
+`Justificativa da [Nome Completo do Critério]: [seu parágrafo de justificativa]`
+
+Exemplo para um critério:
+`Nota Relevância das Disciplinas: 9.5`
+`Justificativa da Relevância das Disciplinas: A estrutura do curso é muito coesa, começando com fundamentos sólidos e avançando para aplicações práticas de forma lógica. A combinação de habilidades técnicas e comportamentais atende diretamente às necessidades do mercado.`
+
+3. Resumo com Sugestões de Melhoria:
+Ao final de todas as avaliações, adicione um parágrafo final chamado "Sugestões Gerais" com 2 ou 3 recomendações práticas para aumentar ainda mais a qualidade e a pertinência do curso.
+                    </pre>
                 </blockquote>
-                <p>Após receber a resposta da IA, preencha o formulário abaixo com as notas correspondentes a cada critério.</p>
+                 <p><strong>[FIM DO PROMPT]</strong></p>
             </div>
         </div>
-        
+
+        <!-- O resto do formulário permanece igual -->
+        <div class="ai-paste-area">
+            <h2 class="ai-title">Assistente de Preenchimento com IA</h2>
+            <div class="input-group">
+                <textarea id="aiResponse" placeholder=" " rows="8"></textarea>
+                <label for="aiResponse">1. Cole a resposta completa da IA aqui</label>
+            </div>
+            <button type="button" id="distributeResponseBtn">2. Preencher Justificativas e Notas</button>
+        </div>
+
+        <div class="ai-paste-area">
+    <h2 class="ai-title">Assistente de Preenchimento com IA</h2>
+    <div class="input-group">
+        <textarea id="aiResponse" placeholder=" " rows="8"></textarea>
+        <label for="aiResponse">1. Cole a resposta completa da IA aqui</label>
+    </div>
+    <button type="button" id="distributeResponseBtn">2. Preencher Justificativas</button>
+</div>
+
+
         <form id="evaluationForm">
             <div class="form-grid">
                 <!-- Grupo com Rótulo Flutuante -->
