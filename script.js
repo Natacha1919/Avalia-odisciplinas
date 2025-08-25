@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const requiredInputs = Array.from(form.querySelectorAll('[required]'));
 
-    // --- FUNÇÕES ---
+       // --- FUNÇÕES ---
 
     function populateCoordinators() {
         coordinatorSelect.innerHTML = '<option value="" selected disabled></option>';
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     function showMessage(message, type) {
         responseMessage.textContent = message;
-        responseMessage.className = type; // Apenas 'success' ou 'error'
+        responseMessage.className = type;
     }
 
     function setButtonLoading(isLoading) {
@@ -155,6 +155,13 @@ document.addEventListener('DOMContentLoaded', function () {
         updateProgressBar();
     });
     form.addEventListener('submit', handleFormSubmit);
+
+    // Event listener para o acordeão do prompt
+    if (promptHeader) {
+        promptHeader.addEventListener('click', () => {
+            promptContainer.classList.toggle('active');
+        });
+    }
 
     // --- INICIALIZAÇÃO ---
     populateCoordinators();
